@@ -2,33 +2,38 @@
 <html lang="en-US">
  <head>
   <style>
-       body { 
-            margin: 20px; 
-            text-align: center;
-            background-color:#bfc0ee;
-        }
-        p { 
-            text-align: justify; 
-            font-size: 20px; 
-        }   
-   table {
-  border-collapse: collapse;
-  width: 100%;
+       body {
+  margin:20px;
+  text-align:center;
+  background-color:#bfc0ee;
 }
 
-td, th {
-  border: 1px solid #7b7ddc;
-  text-align: center;
-  padding: 8px;
+p {
+  text-align:justify;
+  font-size:20px;
 }
 
-tr:nth-child(even) {
-  background-color: #7b7ddc;
+table {
+  border-collapse:collapse;
+  width:100%;
 }
-   footer{
-  padding: 3px;
-  background-color: #acace6;
-   }
+
+td,
+th {
+  border:1px solid #7b7ddc;
+  text-align:center;
+  padding:8px;
+}
+
+tr:nth-child(even) { background-color:#7b7ddc; }
+
+.inline {
+  display:inline-block;
+  vertical-align:top;
+  width:33%;
+}
+
+.footer { background-color:#acace6; }
     </style>  
   <title>Assignment 01</title> 
  </head>
@@ -54,12 +59,12 @@ tr:nth-child(even) {
   </div> 
   <hr style="height:3px;border-width:0;color:gray;background-color:gray" /> 
   <div style="width:100%;"> 
-   <div style="display:inline-block;vertical-align: top;width: 33%;"> 
+   <div class="inline"> 
     <h4> Minimial HTML Example </h4> 
     <code style="background-color:#7b7ddc;"> &lt;!doctype html&gt; <br />&lt;html lang=&quot;en&quot;&gt; <br />&lt;head&gt; <br />&lt;title&gt;Minimial HTML&lt;/title&gt; <br />&lt;/head&gt; <br />&lt;body&gt; <br />&lt;p&gt;Hello, world&lt;/p&gt; <br />&lt;/body&gt; <br />&lt;/html&gt; </code> 
    </div>
    
-   <div style="display:inline-block;vertical-align: top;width: 33%;"> 
+   <div class="inline"> 
     <h4> HTML Table Example </h4>
     <table>
   <tr>
@@ -100,7 +105,7 @@ tr:nth-child(even) {
 </table>
    </div> 
    
-   <div style="display:inline-block;vertical-align: top;width: 33%;"> 
+   <div class ="inline"> 
     <h4> HTML Form Example </h4> 
     <form> 
      <label for="fname">First name:</label>
@@ -117,10 +122,10 @@ tr:nth-child(even) {
     </form> 
    </div>
   </div>
-  <hr style="height:3px;border-width:0;color:gray;background-color:gray" />
-  <footer>
-   <p style = "text-align:center;font-size:10px;">Author: Isabelle Johns </p>
-   <p style = "text-align:center;font-size:10px;">Last Updated: 09/14/20 1:42AM </p>
-  </footer>
+  <div class="footer">
+   <hr style="height:3px;border-width:0;color:gray;background-color:gray" />
+   <p style = "text-align:center;font-size:15px;">Author: Isabelle Johns </p>
+   <p style = "text-align:center;font-size:15px;">Last Updated: 09/14/20 1:42AM </p>
+  </div>
  </body>
 </html>
