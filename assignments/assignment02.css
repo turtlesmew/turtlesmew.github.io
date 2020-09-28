@@ -20,13 +20,24 @@ span {
 .c{
   display: inline-block;
 }
-#cat {  position: fixed; bottom: 0; right: 0;}
-
-#dog {position:relative; left: -50px; top: -150px;}
+img[alt="cat icon"] {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+img[alt="dog icon"] {
+  position:relative; 
+  left: -50px; 
+  top: -150px;
+}
 
 div[id = positionMe]{background-color: orange;}
 
-#bird {position: relative; left: 250px; top: 200px;}
+img[alt="bird icon"] {
+  position:relative; 
+  left: 250px; 
+  top: 200px;
+}
 
 nav {
   position: sticky;
