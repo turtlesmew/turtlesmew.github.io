@@ -1,6 +1,6 @@
 /* --- put your css here --- */ 
 body {background-color: skyblue;}
-.igottabeme { font-family: Arial, Helvetica, sans-serif; }
+.igottabeme {font-family: Arial, Helvetica, sans-serif; }
 .classy {padding-left: 10px; }
 div {margin-bottom: 50px;}
 span {
@@ -12,11 +12,11 @@ span {
   border-color: blue;
   background-color: yellow;
 }
-.b{
+span.b{
   display: block;
 }
 
-.c{
+span.c{
   display: inline-block;
 }
 img[alt="cat icon"] {
