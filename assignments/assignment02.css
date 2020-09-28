@@ -1,10 +1,41 @@
 /* --- put your css here --- */ 
+body {background-color: skyblue;}
+.igottabeme { font-family: Arial, Helvetica, sans-serif; }
+.classy {padding-left: 10px; }
+div {margin-bottom: 50px;}
+span {
+  height: 100px;
+  width: 50px;
+  padding: 5px 20px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: blue;
+  background-color: yellow;
+}
+.b{
+  position: relative;
+  display: block;
+}
 
-/* external css is imported into html using the <link> tag in the <head> section, as shown below.
+.c{
+  display: inline-block;
+}
+#cat {  position: fixed; bottom: 0; right: 0;}
 
+#dog {position:relative; left: -50px; top: -150px;}
 
+div[id = positionMe]{background-color: orange;}
 
-*/
+#bird {position: relative; left: 250px; top: 200px;}
+
+nav {
+  position: sticky;
+  background-color:green;
+  opacity: 90%;
+  top: 0px;
+  padding: 5px;
+  font-size: 20px;
+}
 
 
 /* --- pre-existing css --- */
