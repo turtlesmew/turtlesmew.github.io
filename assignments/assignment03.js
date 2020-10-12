@@ -1,6 +1,6 @@
 let elem = [];
 // assign the entire table row for hole "i" to a variable, elem
-for(var i = 1; i < 19; i ++) {
+for(var i = 1; i <= 18; i ++) {
   let id = String(i)
   elem[i] = document.getElementById(id);
 }
@@ -8,7 +8,7 @@ for(var i = 1; i < 19; i ++) {
 elem[19] = document.getElementById("totals");
 
 //event handlers for the three buttons in row i
-for(let i = 1; i < 18; i ++) {
+for(let i = 1; i <= 18; i ++) {
   elem[i].children[4].children[0].onclick = function(){add1(elem[i]);};
   elem[i].children[4].children[1].onclick = function(){sub1(elem[i]);};
   elem[i].children[4].children[2].onclick = function(){clear(elem[i]);};
@@ -67,7 +67,7 @@ function total (){
   let scoreTotal = 0;
   let overTotal = 0;
   //this loop will run through each row
-  for(let i = 1; i < 18; i ++) {
+  for(let i = 1; i <= 18; i ++) {
     if(elem[i].children[2].innerHTML != "-") { //checks to see if there is a score value
       let score = elem[i].children[2].innerHTML;
       score = Number.parseInt(score);
