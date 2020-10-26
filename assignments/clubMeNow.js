@@ -47,7 +47,7 @@ function appendTableRows() {
 	// select the HTML table <tbody> element
 	let tblbody = document.getElementById('clubTable').children[0];
 	//if the length is over 14, alerts the user
-	if (club.length > 14) {
+	if (clubs.length > 14) {
 		alert("Warning: you are only allowed to carry 14 clubs in your golf bag in match play competition.");
 	}
 	// append one row to HTML table for each row in "clubs" array
