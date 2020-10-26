@@ -54,8 +54,8 @@
         // your code here
 		let sortNew = clubs[clubs.length-1][0];
 		sortNew = sortNew +100;
-		newClubName = document.getElementById('clubName');
-		clubs.push([ sort, "New",  newClubName,   0, 0, 0, 0, 0, 0, 0]);
+		let newClubName = document.getElementById('clubName');
+		clubs.push([ sortNew, "New",  newClubName,   0, 0, 0, 0, 0, 0, 0]);
 		
 		let str = JSON.stringify(clubs);
 		localStorage.setItem("clubs", str);
