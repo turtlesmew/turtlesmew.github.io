@@ -52,12 +52,21 @@
 	
 	function addClub() {
         // your code here
+		let sortNew = clubs[clubs.length][0];
+		sortNew = sortNew +100;
+		newClubName = document.getElementById('clubName');
+		clubs.push([ sort, "New",  newClubName,   0, 0, 0, 0, 0, 0, 0]);
+		
+		let str = JSON.stringify(clubs);
+		localStorage.setItem("clubs", str);
+		// and refresh screen
+		window.location.href = "clubDistanceList.html"; 
 	}
 	
 	// navigate to club distance LIST screen
-    function cancelClub() {
-	    window.location.href = "clubDistanceList.html"; 
-    }
+    	function cancelClub() {
+	    	window.location.href = "clubDistanceList.html"; 
+    	}
 </script>
 
 </body>
