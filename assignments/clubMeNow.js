@@ -33,6 +33,10 @@ function loadClubDistances() {
 	// if "clubs" array already exists, load it from local storage
 	if (localStorage.getItem("clubs")) {
 		clubs = JSON.parse(localStorage.getItem("clubs"));
+		//if the length is over 14, alerts the user
+		if (clubs.length > 14) {
+			alert("Warning: you are only allowed to carry 14 clubs in your golf bag in match play competition.");
+		}
 	}
 	// otherwise create new "clubs" array, using resetAllClubs()
 	else {
@@ -74,11 +78,7 @@ function appendTableRows() {
 		cell4.innerHTML = Math.round(clubs[i][6]); // numOfShots
 		cell5.innerHTML = "<button class='btn btn-success cmn_noPadding cmn_fullHeight' onclick='displayClubDistanceEntryForm(" + i + ");'>&nbsp;&nbsp;+&nbsp;&nbsp;</button>";
 		cell6.innerHTML = clubs[i][2]; // clubName
-		// cell6.innerHTML = clubs[i][2] + ", " + clubs[i][7] + "&deg;"; 
-		//if the length is over 14, alerts the user
-		if (clubs.length > 14) {
-			alert("Warning: you are only allowed to carry 14 clubs in your golf bag in match play competition.");
-		}
+		// cell6.innerHTML = clubs[i][2] + ", " + clubs[i][7] + "&deg;";
 	}
 }
 
