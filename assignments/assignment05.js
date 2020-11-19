@@ -152,7 +152,7 @@ function fillChart() {
   chartData.data.datasets[1].data = newConfirmedOver1000.map(
     (x) => x.TotalDeaths
   );
-  chartData.data.datasets[1].data = newConfirmedOver1000.map(
+  chartData.data.datasets[2].data = newConfirmedOver1000.map(
     (x) => x.TotalConfirmed100000
   );
   //Step 1 Put today's date in the title of the chart. Use Day.js (.format() method)
