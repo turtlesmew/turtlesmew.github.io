@@ -192,18 +192,18 @@ app.controller("myCtrl", function ($scope) {
       let totalInterest = endPrice * interestRate; //create totalInterest equal montly interest rate * end price
       $scope.payments[i] = {
         //adjust payments values
-        year: loans[4].loan_year + i + 1, //go to year the next
-        payment: toMoney(pay), //set payment
-        amt: toMoney(totalInterest), //set interest amount
-        ye: toMoney((endPrice += totalInterest)), //set ye
+        "year": loans[4].loan_year + i + 1, //go to year the next
+        "payment": toMoney(pay), //set payment
+        "amt": toMoney(totalInterest), //set interest amount
+        "ye": toMoney((endPrice += totalInterest)), //set ye
       };
     }
     $scope.payments[10] = {
       //payment values at position 10
-      year: loans[4].loan_year + 11, //year will equal the year of interest plus 11
-      payment: toMoney(endPrice), //set payment to endPrice
-      amt: toMoney(0), //set interest amount to 0
-      ye: toMoney(0), //set ye to 0
+      "year": loans[4].loan_year + 11, //year will equal the year of interest plus 11
+      "payment": toMoney(endPrice), //set payment to endPrice
+      "amt": toMoney(0), //set interest amount to 0
+      "ye": toMoney(0), //set ye to 0
     };
   };
 });
