@@ -1,4 +1,3 @@
-// Completed in Codepen, then put through https://prettier.io/
 // --- global variables ---
 
 var loans = [
@@ -44,25 +43,25 @@ function loadDoc() {
 
   // pre-fill defaults for other loan years
   for (var i = 2; i < 6; i++) {
-    $("loan_year0${i}").val(defaultYear++); //changes the value of the remaining year values to the default year +1
-    $("#loan_year0${i}").attr("disabled", "true"); //disables the remaining year values
-    $("#loan_year0${i}").css({
+    $(`loan_year0${i}`).val(defaultYear++); //changes the value of the remaining year values to the default year +1
+    $(`#loan_year0${i}`).attr("disabled", "true"); //disables the remaining year values
+    $(`#loan_year0${i}`).css({
       backgroundColor: "grey",
       color: "white",
     }); //sets the background to grey and text to white for the remaining years
-    $("#loan_amt0${i}").val(defaultLoanAmount.toFixed(2)); //change the loan amount values to 10,000 dollar value
-    $("#loan_int0${i}").val(defaultinterestRate); // change the interest rate column to the default interest rate
-    $("#loan_int0${i}").attr("disabled", "true"); //disables the remaining interest rate values
-    $("#loan_int0${i}").css({
+    $(`#loan_amt0${i}`).val(defaultLoanAmount.toFixed(2)); //change the loan amount values to 10,000 dollar value
+    $(`#loan_int0${i}`).val(defaultinterestRate); // change the interest rate column to the default interest rate
+    $(`#loan_int0${i}`).attr("disabled", "true"); //disables the remaining interest rate values
+    $(`#loan_int0${i}`).css({
       backgroundColor: "grey",
       color: "white",
     }); //sets the background to grey and text to white for the remaining interest rates
     loanWithInterest =
       (loanWithInterest + defaultLoanAmount) * (1 + defaultinterestRate);
-    $("#loan_bal0" + i).text(toMoney(loanWithInterest)); //changed document.getElementById to $, added # before the ID, changed .innerHTML to .text(), .toComma to ToMoney()
+    $(`#loan_bal0` + i).text(toMoney(loanWithInterest)); //changed document.getElementById to $, added # before the ID, changed .innerHTML to .text(), .toComma to ToMoney()
   } // end: "for" loop
 
-  // all input fields: select contents on fucus
+  // all input fields: select contents on focus
   $("input[type=text]").focus(function () {
     $(this).select();
     $(this).css("background-color", "yellow");
@@ -83,21 +82,21 @@ function toComma(value) {
 }
 
 let toMoney = (value) => {
-  return "$${toComma(value.toFixed(2))}";
+  return `\$${toComma(value.toFixed(2))}`;
 };
 
 let saveForm = () => {
-  localStorage.setItem("as06", JSON.stringify(loans));
+  localStorage.setItem(`as06`, JSON.stringify(loans));
 };
 
 let loadForm = () => {
-  if (localStorage.getItem("as06") != null) {
+  if (localStorage.getItem(`as06`) != null) {
     //if there is data on device
-    loans = JSON.parse(localStorage.getItem("as06")); //apply the values from the saved data to loans
+    loans = JSON.parse(localStorage.getItem(`as06`)); //apply the values from the saved data to loans
     updateForm(); //calls updateForm
   } else {
     //if there is no on device data
-    alert("Error: no saved values"); //alert the user
+    alert(`Error: no saved values`); //alert the user
   }
 };
 
@@ -107,25 +106,25 @@ function updateLoansArray() {
   let intPrd = /^(0|)+(.[0-9]{1,5})?$/; //checks to ensure the value is a number is below 1.0
   let valid = true; //flag for everything being valid
 
-  if (!yearPrd.test($("#loan_year01").val())) {
+  if (!yearPrd.test($(`#loan_year01`).val())) {
     //if year period does not pass
     valid = false; //set to false
-    alert("error in year field"); //prompt user
+    $(`#loan_year01`).css("background-color", "red"); //changes the background color to red
   }
 
   for (i = 1; i < 6; i++) {
     //loop through full amount field
-    if (!amountPrd.test($("#loan_amt0${i}").val())) {
+    if (!amountPrd.test($(`#loan_amt0${i}`).val())) {
       //if amount period is not passed
       valid = false; //set to false
-      alert("error in amount field in box: " + i); //prompt user
+     $(`#loan_amt0${i}`).css("background-color", "red"); //changes the background color to red
     }
   }
 
-  if (!intPrd.test($("#loan_int01").val())) {
+  if (!intPrd.test($(`#loan_int01`).val())) {
     //if int period is not passed
     valid = false; //set to false
-    alert("error in interest rate field"); //prompt user
+    $(`#loan_int01`).css("background-color", "red"); //changes the background color to red
   }
 
   if (valid) {
@@ -138,7 +137,7 @@ function updateLoansArray() {
 
     for (i = 1; i < 6; i++) {
       //loop for entirety of amount values
-      let amount = parseFloat($("#loan_amt0${i}").val()).toFixed(2); //pass the float value
+      let amount = parseFloat($(`#loan_amt0${i}`).val()).toFixed(2); //pass the float value
       loans[i - 1].loan_amount = amount; //save value to loans
     }
 
@@ -156,17 +155,17 @@ let updateForm = () => {
   loanWithInterest = 0;
   let totalLoan = 0;
   for (i = 1; i < 6; i++) {
-    $("#loan_year0${i}").val(loans[i - 1].loan_year); //change the year values to the values stored in loans
+    $(`#loan_year0${i}`).val(loans[i - 1].loan_year); //change the year values to the values stored in loans
     let loaned = loans[i - 1].loan_amount; //create and initialize loaned variable
-    $("#loan_amt0${i}").val(loaned); //pull the loaned amount
+    $(`#loan_amt0${i}`).val(loaned); //pull the loaned amount
     totalLoan += parseFloat(loaned); //accumulate total amount loaned
-    $("#loan_int0${i}").val(loans[i - 1].loan_int_rate); //pull integer value
+    $(`#loan_int0${i}`).val(loans[i - 1].loan_int_rate); //pull integer value
     loanWithInterest =
       (loanWithInterest + parseFloat(loaned)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
-    $("#loan_bal0" + i).text(toMoney(loanWithInterest));
+    $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
   }
   let totalamountowed = loanWithInterest - totalLoan;
-  $("#loan_int_accrued").text(toMoney(totalamountowed)); //apply value for total interest collected over college career
+  $(`#loan_int_accrued`).text(toMoney(totalamountowed)); //apply value for total interest collected over college career
 };
 
 var app = angular.module("myApp", []); //create app using angular inside the myApp field
