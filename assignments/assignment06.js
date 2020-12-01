@@ -27,6 +27,8 @@ var loans = [
     loan_int_rate: 0.0453,
   },
 ];
+let loanWithInterest = 0;
+let int = 0;
 
 // --- function: loadDoc() ---
 
@@ -45,19 +47,12 @@ function loadDoc() {
   for (var i = 2; i < 6; i++) {
     $(`loan_year0${i}`).val(defaultYear++); //changes the value of the remaining year values to the default year +1
     $(`#loan_year0${i}`).attr("disabled", "true"); //disables the remaining year values
-    $(`#loan_year0${i}`).css({
-      backgroundColor: "grey",
-      color: "white",
-    }); //sets the background to grey and text to white for the remaining years
+    $(`#loan_year0${i}`).css({"backgroundColor":"grey","color":"white"}); //sets the background to grey and text to white for the remaining years
     $(`#loan_amt0${i}`).val(defaultLoanAmount.toFixed(2)); //change the loan amount values to 10,000 dollar value
     $(`#loan_int0${i}`).val(defaultinterestRate); // change the interest rate column to the default interest rate
     $(`#loan_int0${i}`).attr("disabled", "true"); //disables the remaining interest rate values
-    $(`#loan_int0${i}`).css({
-      backgroundColor: "grey",
-      color: "white",
-    }); //sets the background to grey and text to white for the remaining interest rates
-    loanWithInterest =
-      (loanWithInterest + defaultLoanAmount) * (1 + defaultinterestRate);
+    $(`#loan_int0${i}`).css({"backgroundColor":"grey","color":"white"}); //sets the background to grey and text to white for the remaining interest rates
+    loanWithInterest = (loanWithInterest + defaultLoanAmount) * (1 + defaultInterestRate);
     $(`#loan_bal0` + i).text(toMoney(loanWithInterest)); //changed document.getElementById to $, added # before the ID, changed .innerHTML to .text(), .toComma to ToMoney()
   } // end: "for" loop
 
@@ -68,13 +63,11 @@ function loadDoc() {
   });
   $("input[type=text]").blur(function () {
     $(this).css("background-color", "white");
+    updateLoansArray();
   });
 
   // set focus to first year: messes up codepen
-  // $("#loan_year01").focus();
-  $("#loan_year01").blur(function () {
-    updateLoansArray();
-  });
+  $("#loan_year01").focus();
 } // end: function loadDoc()
 
 function toComma(value) {
@@ -90,14 +83,28 @@ let saveForm = () => {
 };
 
 let loadForm = () => {
-  if (localStorage.getItem(`as06`) != null) {
-    //if there is data on device
+  if (localStorage.getItem(`as06`) != null) { //if there is data on device
     loans = JSON.parse(localStorage.getItem(`as06`)); //apply the values from the saved data to loans
     updateForm(); //calls updateForm
-  } else {
-    //if there is no on device data
+  } else { //if there is no on device data
     alert(`Error: no saved values`); //alert the user
   }
+};
+
+let updateForm = () => {
+  loanWithInterest = 0;
+  let totalAmt = 0;
+  for (i = 1; i < 6; i++) {
+    $(`#loan_year0${i}`).val(loans[i - 1].loan_year); //change the year values to the values stored in loans
+    let amt = loans[i - 1].loan_amount; //create amt variable
+    $(`#loan_amt0${i}`).val(amt); //pull the loaned amount
+    totalAmt += parseFloat(amt); //accumulate total amount loaned
+    $(`#loan_int0${i}`).val(loans[i - 1].loan_int_rate); //pull integer value
+    loanWithInterest = (loanWithInterest + parseFloat(amt)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
+    $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
+  }
+  let int = loanWithInterest - totalLoan;
+  $(`#loan_int_accrued`).text(toMoney(int)); //apply value for total interest collected over college career
 };
 
 function updateLoansArray() {
@@ -106,44 +113,36 @@ function updateLoansArray() {
   let intPrd = /^(0|)+(.[0-9]{1,5})?$/; //checks to ensure the value is a number is below 1.0
   let valid = true; //flag for everything being valid
 
-  if (!yearPrd.test($(`#loan_year01`).val())) {
-    //if year period does not pass
+  if (!yearPrd.test($(`#loan_year01`).val())) { //if year period does not pass
     valid = false; //set to false
     $(`#loan_year01`).css("background-color", "red"); //changes the background color to red
   }
 
-  for (i = 1; i < 6; i++) {
-    //loop through full amount field
-    if (!amountPrd.test($(`#loan_amt0${i}`).val())) {
-      //if amount period is not passed
+  for (i = 1; i < 6; i++) { //loop through full amount field
+    if (!amountPrd.test($(`#loan_amt0${i}`).val())) { //if amount period is not passed
       valid = false; //set to false
      $(`#loan_amt0${i}`).css("background-color", "red"); //changes the background color to red
     }
   }
 
-  if (!intPrd.test($(`#loan_int01`).val())) {
-    //if int period is not passed
+  if (!intPrd.test($(`#loan_int01`).val())) { //if int period is not passed
     valid = false; //set to false
     $(`#loan_int01`).css("background-color", "red"); //changes the background color to red
   }
 
-  if (valid) {
-    //if everything is valid
+  if (valid) { //if everything is valid
     loans[0].loan_year = parseInt($("#loan_year01").val()); //pass the year value from the input box
-    for (var i = 1; i < 5; i++) {
-      //loop for the rest of the year values
+    for (var i = 1; i < 5; i++) { //loop for the rest of the year values
       loans[i].loan_year = loans[0].loan_year + i; //apply value to loans adding i for proper input
     }
 
-    for (i = 1; i < 6; i++) {
-      //loop for entirety of amount values
+    for (i = 1; i < 6; i++) { //loop for entirety of amount values
       let amount = parseFloat($(`#loan_amt0${i}`).val()).toFixed(2); //pass the float value
       loans[i - 1].loan_amount = amount; //save value to loans
     }
 
     let interestRate = parseFloat($("#loan_int01").val()); //generate interest rate value
-    for (i = 0; i < 5; i++) {
-      //loop for interest rate field
+    for (i = 0; i < 5; i++) { //loop for interest rate field
       loans[i].loan_int_rate = interestRate; //save interest rate to loans
     }
 
@@ -151,27 +150,10 @@ function updateLoansArray() {
   }
 }
 
-let updateForm = () => {
-  loanWithInterest = 0;
-  let totalLoan = 0;
-  for (i = 1; i < 6; i++) {
-    $(`#loan_year0${i}`).val(loans[i - 1].loan_year); //change the year values to the values stored in loans
-    let loaned = loans[i - 1].loan_amount; //create and initialize loaned variable
-    $(`#loan_amt0${i}`).val(loaned); //pull the loaned amount
-    totalLoan += parseFloat(loaned); //accumulate total amount loaned
-    $(`#loan_int0${i}`).val(loans[i - 1].loan_int_rate); //pull integer value
-    loanWithInterest =
-      (loanWithInterest + parseFloat(loaned)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
-    $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
-  }
-  let totalamountowed = loanWithInterest - totalLoan;
-  $(`#loan_int_accrued`).text(toMoney(totalamountowed)); //apply value for total interest collected over college career
-};
-
 var app = angular.module("myApp", []); //create app using angular inside the myApp field
 
 app.controller("myCtrl", function ($scope) {
-  //html and everything within the myCtrl field
+  //everything within the myCtrl field
   $scope.payments = []; //find the payments
 
   $scope.populate = function () {
@@ -184,22 +166,18 @@ app.controller("myCtrl", function ($scope) {
     let r = interestRate / 12; //create an r value for interest over months instead of over years
     let n = 11; //create an n value of the number of months
 
-    let pay =
-      12 * (endPrice / (((1 + r) ** (n * 12) - 1) / (r * (1 + r) ** (n * 12)))); //calculate payment
-    for (let i = 0; i < 10; i++) {
-      //loop 10 times
+    let pay = 12 * (endPrice / (((1 + r) ** (n * 12) - 1) / (r * (1 + r) ** (n * 12)))); //calculate payment
+    for (let i = 0; i < 10; i++) { //loop 10 times
       endPrice -= pay; //decrease endPrice
       let totalInterest = endPrice * interestRate; //create totalInterest equal montly interest rate * end price
-      $scope.payments[i] = {
-        //adjust payments values
+      $scope.payments[i] = { //adjust payments values
         "year": loans[4].loan_year + i + 1, //go to year the next
         "payment": toMoney(pay), //set payment
         "amt": toMoney(totalInterest), //set interest amount
         "ye": toMoney((endPrice += totalInterest)), //set ye
       };
     }
-    $scope.payments[10] = {
-      //payment values at position 10
+    $scope.payments[10] = { //payment values at position 10
       "year": loans[4].loan_year + 11, //year will equal the year of interest plus 11
       "payment": toMoney(endPrice), //set payment to endPrice
       "amt": toMoney(0), //set interest amount to 0
