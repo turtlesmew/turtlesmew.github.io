@@ -45,7 +45,7 @@ function loadDoc() {
 
   // pre-fill defaults for other loan years
   for (var i = 2; i < 6; i++) {
-    $(`loan_year0${i}`).val(defaultYear++); //changes the value of the remaining year values to the default year +1
+    $(`#loan_year0${i}`).val(defaultYear++); //changes the value of the remaining year values to the default year +1
     $(`#loan_year0${i}`).attr("disabled", "true"); //disables the remaining year values
     $(`#loan_year0${i}`).css({"backgroundColor":"grey","color":"white"}); //sets the background to grey and text to white for the remaining years
     $(`#loan_amt0${i}`).val(defaultLoanAmount.toFixed(2)); //change the loan amount values to 10,000 dollar value
