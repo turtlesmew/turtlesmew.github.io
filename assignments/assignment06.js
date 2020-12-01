@@ -76,11 +76,11 @@ function toComma(value) {
 
 let toMoney = (value) => {
   return `\$${toComma(value.toFixed(2))}`;
-};
+}
 
 let saveForm = () => {
   localStorage.setItem(`as06`, JSON.stringify(loans));
-};
+}
 
 let loadForm = () => {
   if (localStorage.getItem(`as06`) != null) { //if there is data on device
@@ -89,7 +89,7 @@ let loadForm = () => {
   } else { //if there is no on device data
     alert(`Error: no saved values`); //alert the user
   }
-};
+}
 
 let updateForm = () => {
   loanWithInterest = 0;
@@ -105,7 +105,7 @@ let updateForm = () => {
   }
   let int = loanWithInterest - totalLoan;
   $(`#loan_int_accrued`).text(toMoney(int)); //apply value for total interest collected over college career
-};
+}
 
 function updateLoansArray() {
   let yearPrd = /^(19|20)\d{2}$/; //checks if the value is a number and within 1899 and 2099
@@ -175,13 +175,13 @@ app.controller("myCtrl", function ($scope) {
         "payment": toMoney(pay), //set payment
         "amt": toMoney(totalInterest), //set interest amount
         "ye": toMoney((endPrice += totalInterest)), //set ye
-      };
+      }
     }
     $scope.payments[10] = { //payment values at position 10
       "year": loans[4].loan_year + 11, //year will equal the year of interest plus 11
       "payment": toMoney(endPrice), //set payment to endPrice
       "amt": toMoney(0), //set interest amount to 0
       "ye": toMoney(0), //set ye to 0
-    };
-  };
+    }
+  }
 });
