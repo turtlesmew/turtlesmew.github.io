@@ -82,7 +82,7 @@ let updateForm = () => {
     loanWithInterest = (loanWithInterest + parseFloat(amt)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
     $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
   }
-  let int = loanWithInterest - totalLoan;
+  let int = loanWithInterest - totalAmt;
   $(`#loan_int_accrued`).text(toMoney(int)); //apply value for total interest collected over college career
 }
 
