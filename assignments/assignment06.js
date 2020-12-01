@@ -57,11 +57,11 @@ function loadDoc() {
   } // end: "for" loop
 
   // all input fields: select contents on focus
-  $("input[type=text]").focus(function () {
+  $("input[type=text]").focus(function() {
     $(this).select();
     $(this).css("background-color", "yellow");
   });
-  $("input[type=text]").blur(function () {
+  $("input[type=text]").blur(function() {
     $(this).css("background-color", "white");
     updateLoansArray();
   });
@@ -69,6 +69,22 @@ function loadDoc() {
   // set focus to first year: messes up codepen
   $("#loan_year01").focus();
 } // end: function loadDoc()
+
+let updateForm = () => {
+  loanWithInterest = 0;
+  let totalAmt = 0;
+  for (i = 1; i < 6; i++) {
+    $(`#loan_year0${i}`).val(loans[i - 1].loan_year); //change the year values to the values stored in loans
+    let amt = loans[i - 1].loan_amount; //create amt variable
+    $(`#loan_amt0${i}`).val(amt); //pull the loaned amount
+    totalAmt += parseFloat(amt); //accumulate total amount loaned
+    $(`#loan_int0${i}`).val(loans[i - 1].loan_int_rate); //pull integer value
+    loanWithInterest = (loanWithInterest + parseFloat(amt)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
+    $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
+  }
+  let int = loanWithInterest - totalLoan;
+  $(`#loan_int_accrued`).text(toMoney(int)); //apply value for total interest collected over college career
+}
 
 function toComma(value) {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -91,22 +107,6 @@ let loadForm = () => {
   }
 }
 
-let updateForm = () => {
-  loanWithInterest = 0;
-  let totalAmt = 0;
-  for (i = 1; i < 6; i++) {
-    $(`#loan_year0${i}`).val(loans[i - 1].loan_year); //change the year values to the values stored in loans
-    let amt = loans[i - 1].loan_amount; //create amt variable
-    $(`#loan_amt0${i}`).val(amt); //pull the loaned amount
-    totalAmt += parseFloat(amt); //accumulate total amount loaned
-    $(`#loan_int0${i}`).val(loans[i - 1].loan_int_rate); //pull integer value
-    loanWithInterest = (loanWithInterest + parseFloat(amt)) * (1 + loans[0].loan_int_rate); //calculate the total loaned value with interest
-    $(`#loan_bal0` + i).text(toMoney(loanWithInterest));
-  }
-  let int = loanWithInterest - totalLoan;
-  $(`#loan_int_accrued`).text(toMoney(int)); //apply value for total interest collected over college career
-}
-
 function updateLoansArray() {
   let yearPrd = /^(19|20)\d{2}$/; //checks if the value is a number and within 1899 and 2099
   let amountPrd = /^([1-9][0-9]*)+(.[0-9]{1,2})?$/; //checks if the value is a number and above 1 whole dollar
@@ -115,19 +115,19 @@ function updateLoansArray() {
 
   if (!yearPrd.test($(`#loan_year01`).val())) { //if year period does not pass
     valid = false; //set to false
-    $(`#loan_year01`).css("background-color", "red"); //changes the background color to red
+    alert("error in year field"); //messagebox to tell user error
   }
 
   for (i = 1; i < 6; i++) { //loop through full amount field
     if (!amountPrd.test($(`#loan_amt0${i}`).val())) { //if amount period is not passed
       valid = false; //set to false
-     $(`#loan_amt0${i}`).css("background-color", "red"); //changes the background color to red
+      alert("error in amount field in box: " + i); //messagebox to tell user error in box i
     }
   }
 
   if (!intPrd.test($(`#loan_int01`).val())) { //if int period is not passed
     valid = false; //set to false
-    $(`#loan_int01`).css("background-color", "red"); //changes the background color to red
+    alert("error in interest rate field"); //messagebox to tell user error in interest rate
   }
 
   if (valid) { //if everything is valid
